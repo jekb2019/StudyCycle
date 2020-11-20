@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Cycle</title>
+    <meta name="description" content="Study cycle timer to help focus">
+    <meta name="author" content="Jason Ko">
+    <link rel="icon" type="imgs/png" href="images/tab-logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b0f29e9bfe.js" crossorigin="anonymous"></script>
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="container" id="left-container">
+            <div id="logo-container">
+                <img src="images/logo.png" alt="study-cycle-logo">
+            </div>
+        </div>
+        <div class="container" id="right-container">
+            <div id="overall-timer-wrapper">
+                <div id="cycle-info">
+                    <div id="cycle-info__desc">
+                        <p>2hr - 10mins Cycle</p>
+                    </div>
+                    <div id="setting-icon-wrapper">
+                        <i class="fas fa-cog" id="setting-icon"></i>
+                    </div>
+                </div>
+                <div id="timer-container">
+                    <div id="indicators">
+                        <div class="indicator" id="indicators__focus"><p>Focus</p></div>
+                        <div class="indicator" id="indicators__break"><p>Break</p></div>
+                    </div>
+                    <div id="timer-box">
+                        <div id="timer-box__timer">
+                            <p>01:30:15</p>
+                        </div>
+                        <div id="timer-box__cycle">
+                            <p>Cycle 3</p>
+                        </div>
+                    </div>
+                    <div id="controllers">
+                        <div class="controller active" id="controllers__go">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="controller" id="controllers__stop">
+                            <i class="fas fa-pause"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div id="copyrights">
+            <p>Copyright &#169 2020 by Jason Ko</p>
+        </div>
+    </footer>
+</body>
+</html>
