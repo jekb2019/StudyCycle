@@ -74,6 +74,7 @@ body {
     height: 300px;
     border-radius: 50px;
     background-color: #f0f0f0;
+    text-align: center;
 }
 #indicators {
     display: flex;
@@ -84,6 +85,7 @@ body {
     background-color: #dedede;
     padding: 5px;
     width: 100px;
+    height: 30px;
     border-radius: 10px;
 }
 .indicator p {
@@ -91,10 +93,13 @@ body {
     cursor: default;
 }
 .indicator.focus.active {
-    border: 1px solid #aba9ab;
+    border: 0.5px solid #aba9ab;
+}
+.indicator.break.active {
+    border: 0.5px solid #aba9ab;
 }
 .indicator.break.active p{
-    color: #94b87f;
+    color: #009900;
 }
 .indicator.active p{
     font-weight: 500;
@@ -107,11 +112,30 @@ body {
     width: 500px;
     margin: 20px auto;
 }
+.timer-box__timer {
+    display: flex;
+    margin-left: 20px;
+}
+#reset-wrapper {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+#reset-wrapper:active i {
+    color: black;
+}
+#reset-wrapper:hover i {
+    color: #636363;
+}
+#reset-icon {
+    font-size: 20px;
+    color: #808080;
+}
 .timer-box__timer.active p{
     color: black;
 }
 .timer-box__timer p {
-    color: #b3f09e;
+    color: #009900;
     cursor: default;
     text-align: center;
     font-size: 120px;
@@ -125,8 +149,7 @@ body {
     padding-right: 20px;
 }
 .controllers {
-    display: flex;
-    justify-content: center;
+    display: inline-block;
     cursor: pointer;
 }
 .controller {
