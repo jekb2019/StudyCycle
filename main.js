@@ -79,9 +79,11 @@ function resetTimer(){
     isFocus = true;
     currentTime = 0;
     updateIndicator();
-    updateCycle();
     updateTimerColor();
+    cycleDisplay.innerHTML = `Cycle 1`;
     timerDisplay.innerHTML = "00:00:00";
+    switchControllerStatus("stop")
+    pauseTimer();
 }
 
 //update cycle number
