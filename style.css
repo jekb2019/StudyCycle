@@ -6,17 +6,19 @@
 }
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #fafafa;
+}
+#full-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100vh;
+    background-color: white;
+    border-radius: 50px;
 }
 .content-wrapper {
-    border: 1px solid black;
     display: flex;
     justify-content: space-between;
 }
-.container {
-    border: 1px solid black;
-    height: 100vh;
-}
-
 /* Left Container */
 #left-container {
     width: 40%;
@@ -46,19 +48,29 @@ body {
     justify-content: center;
 }
 #cycle-info__desc p {
+    cursor: default;
+    color: #808080;
     font-size: 20px;
 }
 #setting-icon-wrapper {
     margin-left: 10px;
 }
 #setting-icon-wrapper i {
+    color: #aba9ab;
+    cursor: pointer;
     font-size: 20px;
     line-height: 1.3;
 }
+#setting-icon-wrapper i:hover {
+    color: #808080;
+}
+#setting-icon-wrapper i:active {
+    color: #636363;
+}
 #timer-container {
-    border: 1px solid black;
     height: 300px;
     border-radius: 50px;
+    background-color: #f0f0f0;
 }
 #indicators {
     display: flex;
@@ -66,25 +78,44 @@ body {
     padding: 20px 40px;
 }
 .indicator {
-    border: 1px solid black;
+    background-color: #dedede;
     padding: 5px;
     width: 100px;
+    border-radius: 10px;
+}
+.indicator p {
+    color: #c2c2c2;
+    cursor: default;
+}
+.indicator.focus.active {
+    border: 1px solid #aba9ab;
+}
+.indicator.break.active p{
+    color: #94b87f;
+}
+.indicator.active p{
+    font-weight: 500;
+    color: #636363;
 }
 .indicator p {
     text-align: center;
 }
 #timer-box {
-    border: 1px solid black;
     width: 500px;
     margin: 20px auto;
 }
-#timer-box__timer p{
+.timer-box__timer.break p{
+    color: #b3f09e;
+}
+.timer-box__timer p {
+    cursor: default;
     text-align: center;
     font-size: 120px;
-    border: 1px solid black;
     line-height: 0.8;
 }
-#timer-box__cycle p {
+.timer-box__cycle p {
+    cursor: default;
+    color: #636363;
     font-size: 20px;
     text-align: end;
     padding-right: 20px;
@@ -96,8 +127,28 @@ body {
 .controller {
     font-size: 30px;
     display: none;
-    
+    cursor: pointer;
+}
+.controller i {
+    color: #aba9ab;
+}
+.controller i:hover {
+    color: #808080;
+}
+.controller i:active {
+    color: #636363;
 }
 .controller.active {
     display: block;
+}
+/* Footer */
+#copyrights {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -95px;
+}
+#copyrights p {
+    cursor: default;
+    color: #808080;
 }
