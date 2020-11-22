@@ -104,10 +104,11 @@ body {
     width: 500px;
     margin: 20px auto;
 }
-.timer-box__timer.break p{
-    color: #b3f09e;
+.timer-box__timer.active p{
+    color: black;
 }
 .timer-box__timer p {
+    color: #b3f09e;
     cursor: default;
     text-align: center;
     font-size: 120px;
