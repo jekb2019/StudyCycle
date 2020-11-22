@@ -2,6 +2,10 @@ const goButton = document.querySelector("#controllers__go");
 const stopButton = document.querySelector("#controllers__stop");
 const controller = document.querySelectorAll(".controllers")[0];
 const setting = document.querySelector("#setting-icon-wrapper");
+const focusIndicator = document.querySelector("#focus-indicator");
+const breakIndicator = document.querySelector("#break-indicator");
+
+let isFocus = true;
 
 setting.onclick = () => {
 // todo - implement
@@ -24,4 +28,18 @@ function switchControllerStatus(){
         goButton.classList.add("active");
         stopButton.classList.remove("active");
     }
+}
+
+function switchIndicatorMode() {
+    console.log(isFocus);
+    if(isFocus) {
+        isFocus = false;
+        focusIndicator.classList.remove("active");
+        breakIndicator.classList.add("active");
+    } else {
+        isFocus = true;
+        focusIndicator.classList.add("active");
+        breakIndicator.classList.remove("active");
+    }
+    console.log(isFocus);
 }
