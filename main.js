@@ -10,9 +10,9 @@ const timerDisplayBox = document.querySelectorAll(".timer-box__timer")[0];
 const resetButton = document.querySelector("#reset-wrapper");
 
 let timer;
-let focusTime = 5; //link this with the application
+let focusTime = 20*60; //link this with the application
 let currentTime = 0; //link this with the application
-let breakTime = 3;
+let breakTime = 5*60;
 let isFocus = true;
 let cycleNum = 1;
 
@@ -44,7 +44,6 @@ function startTimer() {
         if(isFocus){
             if(currentTime >= focusTime){
                 // pauseTimer(timer);
-                updateCycle();
                 resetCurrentTime();
                 isFocus = false;
             }
