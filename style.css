@@ -4,6 +4,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+i {
+    pointer-events: none;
+}
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #fafafa;
@@ -61,10 +64,10 @@ body {
     font-size: 20px;
     line-height: 1.3;
 }
-#setting-icon-wrapper i:hover {
+#setting-icon-wrapper:hover i {
     color: #808080;
 }
-#setting-icon-wrapper i:active {
+#setting-icon-wrapper:active i {
     color: #636363;
 }
 #timer-container {
@@ -121,22 +124,23 @@ body {
     text-align: end;
     padding-right: 20px;
 }
-#controllers {
+.controllers {
     display: flex;
     justify-content: center;
+    cursor: pointer;
 }
 .controller {
     font-size: 30px;
     display: none;
-    cursor: pointer;
+    pointer-events: none;
 }
 .controller i {
     color: #aba9ab;
 }
-.controller i:hover {
+.controllers:hover i {
     color: #808080;
 }
-.controller i:active {
+.controllers:active i {
     color: #636363;
 }
 .controller.active {
