@@ -182,7 +182,7 @@ body {
 }
 /* Setting Window */
 #setting-window {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     border-radius: 40px;
@@ -244,6 +244,7 @@ body {
     display: flex;
 }
 .setting-component__input-wrapper label{
+    color: #808080;
     margin-top: 10px;
     margin-right: 30px;
 }

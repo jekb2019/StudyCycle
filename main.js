@@ -1,13 +1,17 @@
 const goButton = document.querySelector("#controllers__go");
 const stopButton = document.querySelector("#controllers__stop");
 const controller = document.querySelectorAll(".controllers")[0];
-const setting = document.querySelector("#setting-icon-wrapper");
+const settingButton = document.querySelector("#setting-icon-wrapper");
 const focusIndicator = document.querySelector("#focus-indicator");
 const breakIndicator = document.querySelector("#break-indicator");
 const timerDisplay = document.querySelector("#timer-box__timer__display");
 const cycleDisplay = document.querySelector("#timer-box__cycle__display");
 const timerDisplayBox = document.querySelectorAll(".timer-box__timer")[0];
 const resetButton = document.querySelector("#reset-wrapper");
+const settingWindow = document.querySelector("#setting-window");
+const settingCloseButton = document.querySelector("#setting-window__close-button-wrapper");
+const fullAppWrapper = document.querySelector("#full-wrapper");
+const settingOKButton = document.querySelector("#setting-window__ok-button");
 
 let timer;
 let focusTime = 20*60; //link this with the application
@@ -16,9 +20,28 @@ let breakTime = 5*60;
 let isFocus = true;
 let cycleNum = 1;
 
-// todo - when setting button is clicked, it should show setting window
-setting.onclick = () => {
-    console.log(setting);
+settingButton.onclick = () => {
+    openSettingWindow();
+}
+
+settingCloseButton.onclick = () => {
+    closeSettingWindow();
+}
+
+settingOKButton.onclick = () => {
+    closeSettingWindow();
+}
+
+// open setting window
+function openSettingWindow() {
+    settingWindow.style.display = "flex";
+    fullAppWrapper.style.filter = "brightness(60%)";
+}
+
+// close setting window
+function closeSettingWindow() {
+    settingWindow.style.display = "none";
+    fullAppWrapper.style.filter = "brightness(100%)";
 }
 
 resetButton.onclick = () => {
