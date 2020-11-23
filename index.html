@@ -73,5 +73,53 @@
             </footer>
         </div>
     </div>
+    <!-- Setting Window -->
+    <div id="setting-window">
+        <div id="setting-window__heading">
+            <img src="images/tab-logo.png" alt="small logo">
+            <p id="setting-title">Settings</p>
+            <div id="setting-window__close-button-wrapper">
+                <p id="setting-window__close-button">X</p>
+            </div>
+        </div>
+        <div class="setting-component" id="setting-window__focus-time">
+            <p class="setting-component__title">Focus Time</p>
+            <div class="setting-component__input-wrapper">
+                <label>
+                    <input type="number" min="0" max="24" value="1">
+                    Hours
+                </label>
+                <label>
+                    <input type="number" min="0" max="59" value="1">
+                    Minutes
+                </label>
+            </div>
+        </div>
+        <div class="setting-component" id="setting-window__break-time">
+            <p class="setting-component__title">Break Time</p>
+            <div class="setting-component__input-wrapper">
+                <label>
+                    <input type="number" min="0" max="24" value="1">
+                    Hours
+                </label>
+                <label>
+                    <input type="number" min="0" max="59" value="1">
+                    Minutes
+                </label>
+            </div>
+        </div>
+        <div class="setting-component" id="setting-window__cycle">
+            <p class="setting-component__title">Goal Cycles</p>
+            <div class="setting-component__input-wrapper">
+                <label>
+                    <input type="number" value="1">
+                    Cycles
+                </label>
+            </div>
+        </div>
+        <div id="setting-window__ok-button">
+            <p>OK</p>
+        </div>
+    </div>
 </body>
 </html>

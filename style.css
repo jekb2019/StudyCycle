@@ -180,3 +180,103 @@ body {
     cursor: default;
     color: #808080;
 }
+/* Setting Window */
+#setting-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 40px;
+    border: 1px solid #aba9ab;
+    width: 350px;
+    height: 400px;
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    margin-left: -175px;
+    background-color: white;
+}
+#setting-window__heading {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #dedede;
+}
+#setting-window__heading #setting-title {
+    font-size: 30px;
+    cursor: default;
+}
+#setting-window__heading img {
+    margin-top: 3px;
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+}
+#setting-window__close-button-wrapper:hover p{
+    color: #808080;
+}
+#setting-window__close-button-wrapper:active p{
+    color: black;
+}
+#setting-window__close-button-wrapper {
+    position: absolute;
+    display: inline-block;
+    height: 30px;
+    top: 10px;
+    right: 25px;
+    font-size: 25px;
+    color: #aba9ab;
+    cursor: pointer;
+}
+
+.setting-component {
+    border-bottom: 1px solid #dedede;
+    height: 70px;
+    width: 270px;
+    margin-bottom: 20px;
+}
+.setting-component__title {
+    font-size: 20px;
+    color: #808080;
+    cursor: default;
+}
+.setting-component__input-wrapper {
+    display: flex;
+}
+.setting-component__input-wrapper label{
+    margin-top: 10px;
+    margin-right: 30px;
+}
+.setting-component__input-wrapper input{
+    height: 30px;
+    width: 45px;
+    font-size: 20px;
+}
+
+
+
+#setting-window__ok-button {
+    border: 1px solid #c2c2c2;
+    width: 80px;
+    height: 30px;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #dedede;
+    cursor: pointer;
+}
+#setting-window__ok-button p{
+    line-height: 1.5;
+    font-size: 20px;
+}
+#setting-window__ok-button:hover {
+    background-color: #c2c2c2;
+}
+#setting-window__ok-button:active {
+    background-color: black;
+}
+#setting-window__ok-button:active p {
+    color: white;
+}
+#setting-window__ok-button p {
+    color: #808080;
+}
