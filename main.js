@@ -12,12 +12,25 @@ const settingWindow = document.querySelector("#setting-window");
 const settingCloseButton = document.querySelector("#setting-window__close-button-wrapper");
 const fullAppWrapper = document.querySelector("#full-wrapper");
 const settingOKButton = document.querySelector("#setting-window__ok-button");
+// Timer setting input values
+const focusHrSet = document.querySelector("#focus-time-setting-hr");
+const focusMinSet = document.querySelector("#focus-time-setting-min");
+const breakHrSet = document.querySelector("#break-time-setting-hr");
+const breakMinSet = document.querySelector("#break-time-setting-min");
+const cycleNumSet = document.querySelector("#cycle-num-setting");
+// Timer descriptions
+let focusHrDesc = document.querySelector("#cycle-info__desc__f-hr");
+let focusMinDesc = document.querySelector("#cycle-info__desc__f-min");
+let breakHrDesc = document.querySelector("#cycle-info__desc__b-hr");
+let breakMinDesc = document.querySelector("#cycle-info__desc__b-min");
+let cycleDesc = document.querySelector("#cycle-info__desc__cycle");
 
 let timer;
 let focusTime = 20*60; //link this with the application
 let currentTime = 0; //link this with the application
 let breakTime = 5*60;
 let isFocus = true;
+let goalCycleNum;
 let cycleNum = 1;
 
 settingButton.onclick = () => {
@@ -30,18 +43,7 @@ settingCloseButton.onclick = () => {
 
 settingOKButton.onclick = () => {
     closeSettingWindow();
-}
-
-// open setting window
-function openSettingWindow() {
-    settingWindow.style.display = "flex";
-    fullAppWrapper.style.filter = "brightness(60%)";
-}
-
-// close setting window
-function closeSettingWindow() {
-    settingWindow.style.display = "none";
-    fullAppWrapper.style.filter = "brightness(100%)";
+    setTimerSetting();
 }
 
 resetButton.onclick = () => {
@@ -58,6 +60,39 @@ controller.onclick = () => {
         pauseTimer();
     }
 }
+
+//set timer by getting input from the setting window
+function setTimerSetting() {
+    let focusHr = focusHrSet.value;
+    let focusMin = focusMinSet.value;
+    let breakHr = breakHrSet.value;
+    let breakMin = breakMinSet.value;
+    let cycles = cycleNumSet.value;
+
+    focusTime = focusHr*60*60 + focusMin*60;
+    breakTime = breakHr*60*60 + breakMin*60;
+    goalCycleNum = cycles; 
+
+    focusHrDesc.innerHTML = focusHr;
+    focusMinDesc.innerHTML = focusMin;
+    breakHrDesc.innerHTML = breakHr;
+    breakMinDesc.innerHTML = breakMin;
+    cycleDesc.innerHTML = cycles;
+    resetTimer();
+}
+
+// open setting window
+function openSettingWindow() {
+    settingWindow.style.display = "flex";
+    fullAppWrapper.style.filter = "brightness(60%)";
+}
+
+// close setting window
+function closeSettingWindow() {
+    settingWindow.style.display = "none";
+    fullAppWrapper.style.filter = "brightness(100%)";
+}
+
 
 // start timer
 function startTimer() {

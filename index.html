@@ -31,7 +31,16 @@
                     <!-- Cycle Info -->
                     <div id="cycle-info">
                         <div id="cycle-info__desc">
-                            <p>2 hr - 10 mins 5 Cycles</p>
+                            <p class="timer-desc" id="cycle-info__desc__text">
+                                <p class="timer-desc" id="cycle-info__desc__f-hr">2</p> <p>hr</p>  
+                                <p class="timer-desc" id="cycle-info__desc__f-min">0</p> <p>min</p>
+                                <p>-</p>
+                                <p class="timer-desc" id="cycle-info__desc__b-hr">0</p> <p>hr</p>  
+                                <p class="timer-desc" id="cycle-info__desc__b-min">20</p> <p>min</p>
+                                <p>-</p>
+                                <p class="timer-desc" id="cycle-info__desc__cycle">5</p>
+                                <p>Cycles</p>
+                            </p>
                         </div>
                         <div id="setting-icon-wrapper">
                             <i class="fas fa-cog" id="setting-icon"></i>
@@ -86,11 +95,11 @@
             <p class="setting-component__title">Focus Time</p>
             <div class="setting-component__input-wrapper">
                 <label>
-                    <input type="number" min="0" max="24" value="2">
+                    <input id="focus-time-setting-hr" type="number" min="0" max="24" value="2">
                     Hours
                 </label>
                 <label>
-                    <input type="number" min="0" max="59" value="0">
+                    <input id="focus-time-setting-min" type="number" min="1" max="59" value="0">
                     Minutes
                 </label>
             </div>
@@ -99,11 +108,11 @@
             <p class="setting-component__title">Break Time</p>
             <div class="setting-component__input-wrapper">
                 <label>
-                    <input type="number" min="0" max="24" value="0">
+                    <input id="break-time-setting-hr"type="number" min="0" max="24" value="0">
                     Hours
                 </label>
                 <label>
-                    <input type="number" min="0" max="59" value="30">
+                    <input id="break-time-setting-min" type="number" min="1" max="59" value="20">
                     Minutes
                 </label>
             </div>
@@ -112,7 +121,7 @@
             <p class="setting-component__title">Goal Cycles</p>
             <div class="setting-component__input-wrapper">
                 <label>
-                    <input type="number" value="5">
+                    <input id="cycle-num-setting" min="1" type="number" value="5">
                     Cycles
                 </label>
             </div>
