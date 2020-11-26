@@ -4,6 +4,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+a {
+    color: #808080;
+}
 i {
     pointer-events: none;
 }
@@ -176,6 +179,7 @@ body {
     bottom: 10px;
     left: 50%;
     margin-left: -95px;
+    text-align: center;
 }
 #copyrights p {
     cursor: default;

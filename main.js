@@ -1,5 +1,6 @@
 const goButton = document.querySelector("#controllers__go");
 const stopButton = document.querySelector("#controllers__stop");
+const resetCtrButton = document.querySelector("#controllers__reset");
 const controller = document.querySelectorAll(".controllers")[0];
 const settingButton = document.querySelector("#setting-icon-wrapper");
 const focusIndicator = document.querySelector("#focus-indicator");
@@ -12,6 +13,7 @@ const settingWindow = document.querySelector("#setting-window");
 const settingCloseButton = document.querySelector("#setting-window__close-button-wrapper");
 const fullAppWrapper = document.querySelector("#full-wrapper");
 const settingOKButton = document.querySelector("#setting-window__ok-button");
+const timerContainer = document.querySelector("#timer-container");
 // Timer setting input values
 const focusHrSet = document.querySelector("#focus-time-setting-hr");
 const focusMinSet = document.querySelector("#focus-time-setting-min");
@@ -81,10 +83,14 @@ controller.onclick = () => {
         } else {
             startTimer();
         }
-    } else {
+    } else if(controller.classList.contains("stop")) {
         switchControllerStatus("stop")
         pauseTimer();
-    }
+    } else if(controller.classList.contains("reset")) {
+        makeClickSound();
+        timerPaused = true;
+        resetTimer();
+    }   
 }
 
 function initiateTimer() {
@@ -191,17 +197,20 @@ function processGoalMet() {
     updateIndicator("focus");
     updateTimerColor("focus");
     timerDisplay.innerHTML = "00:00:00";
-    switchControllerStatus("stop")
+    switchControllerStatus("reset")
     blinkIndicator();
+    
 }
 
 function blinkIndicator(){
+    timerContainer.style.pointerEvents = "none";
     let greenText = false;
     let blinkCount = 0
     const goalAction = setInterval(() => {
         if(blinkCount >= 10) {
             timerDisplayBox.classList.add("active");
             clearInterval(goalAction);
+            timerContainer.style.pointerEvents = "auto";
             return;
         }
         if(greenText) {
@@ -276,13 +285,24 @@ function switchControllerStatus(currentStatus){
     if(currentStatus == "go") {
         controller.classList.remove("go");
         controller.classList.add("stop");
+        controller.classList.remove("reset");
         goButton.classList.remove("active");
         stopButton.classList.add("active");
-    } else {
+        resetCtrButton.classList.remove("active");
+    } else if (currentStatus == "stop") {
+        controller.classList.remove("reset");
         controller.classList.add("go");
         controller.classList.remove("stop");
         goButton.classList.add("active");
         stopButton.classList.remove("active");
+        resetCtrButton.classList.remove("active");
+    } else if (currentStatus == "reset") {
+        controller.classList.add("reset");
+        controller.classList.remove("stop");
+        controller.classList.remove("go");
+        goButton.classList.remove("active");
+        stopButton.classList.remove("active");
+        resetCtrButton.classList.add("active");
     }
 }
 
