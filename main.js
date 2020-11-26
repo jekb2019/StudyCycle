@@ -26,157 +26,117 @@ let breakMinDesc = document.querySelector("#cycle-info__desc__b-min");
 let cycleDesc = document.querySelector("#cycle-info__desc__cycle");
 
 let timer;
-let focusTime = 20*60; //link this with the application
-let currentTime = 0; //link this with the application
-let breakTime = 5*60;
+// let focusTime = 20*60;
+let focusTime = 3;
+let currentTime = 0;
+// let breakTime = 5*60;
+let breakTime = 2;
 let isFocus = true;
-let goalCycleNum;
+// let goalCycleNum = 5;
+let goalCycleNum = 2;
 let cycleNum = 1;
+let timerInitiated = false;
+let timerPaused = true;
 
+function deb() {
+    console.log("isFocus", isFocus);
+    console.log("cycleNum", cycleNum);
+    console.log("goalCycleNum", goalCycleNum);
+    console.log("timerInitiated", timerInitiated);
+    console.log("timerPaused", timerPaused);
+
+}
+
+// Button controllers
 settingButton.onclick = () => {
+    makeClickSound();
     openSettingWindow();
 }
 
 settingCloseButton.onclick = () => {
+    makeClickSound();
     closeSettingWindow();
 }
 
 settingOKButton.onclick = () => {
+    makeClickSound();
     closeSettingWindow();
     setTimerSetting();
 }
 
 resetButton.onclick = () => {
+    makeClickSound();
+    timerPaused = true;
     resetTimer();
 }
 
 // when controller (go/stop) is clicked
 controller.onclick = () => {
+    makeClickSound();
     if(controller.classList.contains("go")) {
         switchControllerStatus("go")
-        startTimer();
+        if(!timerInitiated) {
+            timerInitiated = true;
+            initiateTimer();
+        } else {
+            startTimer();
+        }
     } else {
         switchControllerStatus("stop")
         pauseTimer();
     }
 }
 
-//set timer by getting input from the setting window
-function setTimerSetting() {
-    let focusHr = focusHrSet.value;
-    let focusMin = focusMinSet.value;
-    let breakHr = breakHrSet.value;
-    let breakMin = breakMinSet.value;
-    let cycles = cycleNumSet.value;
-
-    focusTime = focusHr*60*60 + focusMin*60;
-    breakTime = breakHr*60*60 + breakMin*60;
-    goalCycleNum = cycles; 
-
-    focusHrDesc.innerHTML = focusHr;
-    focusMinDesc.innerHTML = focusMin;
-    breakHrDesc.innerHTML = breakHr;
-    breakMinDesc.innerHTML = breakMin;
-    cycleDesc.innerHTML = cycles;
-    resetTimer();
+function initiateTimer() {
+    makeFocusSound();
+    startTimer();
 }
 
-// open setting window
-function openSettingWindow() {
-    settingWindow.style.display = "flex";
-    fullAppWrapper.style.filter = "brightness(60%)";
-}
-
-// close setting window
-function closeSettingWindow() {
-    settingWindow.style.display = "none";
-    fullAppWrapper.style.filter = "brightness(100%)";
-}
-
-
-// start timer
 function startTimer() {
-    currentTime++;
-    updateDisplay(currentTime);
-    timer = setInterval(() => {
-        if(isFocus){
-            if(currentTime >= focusTime){
-                // pauseTimer(timer);
-                resetCurrentTime();
-                isFocus = false;
-            }
-        } else {
-            if(currentTime >= breakTime){
-                // pauseTimer(timer);
-                updateCycle();
-                resetCurrentTime();
-                isFocus = true;
-            }
-        }
-        currentTime++;
-        updateDisplay(currentTime);
-        
-        
-    }, 1000);
+    progressTimer();
 }
 
-// pause timer
 function pauseTimer() {
+    timerPaused = true;
     clearInterval(timer);
 }
 
-// reset current time
 function resetCurrentTime() {
     currentTime = 0;
 }
 
-// reset the whole timer data
-function resetTimer(){
-    resetCurrentTime();
-    cycleNum = 1;
-    isFocus = true;
-    currentTime = 0;
-    updateIndicator();
-    updateTimerColor();
-    cycleDisplay.innerHTML = `Cycle 1`;
-    timerDisplay.innerHTML = "00:00:00";
-    switchControllerStatus("stop")
-    pauseTimer();
+function progressTimer() {
+    timerPaused = false;
+    timer = setInterval(() => {
+        if(isFocus) {
+            if(currentTime >= focusTime) {
+                resetCurrentTime();
+                isFocus = false;
+                makeBreakSound();
+                updateIndicator("break");
+                updateTimerColor("break")
+            }
+        } else {
+            if(currentTime >= breakTime) {
+                resetCurrentTime();
+                incrementCycle();
+                isFocus = true;
+                if(cycleNum == goalCycleNum) {
+                    processGoalMet();
+                    return;
+                }
+                makeFocusSound();
+                updateIndicator("focus");
+                updateTimerColor("focus");
+            }
+        }
+        currentTime++;
+        updateTimeDisplay(currentTime);
+
+    }, 1000)
 }
 
-//update cycle number
-function updateCycle() {
-    cycleNum++;
-    cycleDisplay.innerHTML = `Cycle ${cycleNum}`;
-}
-
-function updateDisplay(currentTime) {
-    updateTimerDisplay(currentTime)
-    updateIndicator();
-    updateTimerColor();
-}
-
-function updateTimerColor() {
-    if(isFocus) {
-        timerDisplayBox.classList.add("active");
-    } else {
-        timerDisplayBox.classList.remove("active");
-    }
-}
-
-// update focus/break indicator 
-function updateIndicator() {
-    if(isFocus) {
-        breakIndicator.classList.remove("active");
-        focusIndicator.classList.add("active");
-    } else {
-        breakIndicator.classList.add("active");
-        focusIndicator.classList.remove("active");
-    }
-}
-
-// update timer display
-function updateTimerDisplay(currentTime) {
+function updateTimeDisplay(currentTime) {
     let hours;
     let minutes;
     let seconds;
@@ -203,6 +163,99 @@ function updateTimerDisplay(currentTime) {
 
     let timeString = `${hours}:${minutes}:${seconds}`;
     timerDisplay.innerHTML = timeString;
+}
+
+function incrementCycle() {
+    cycleNum++;
+    cycleDisplay.innerHTML = `Cycle ${cycleNum}`;
+}
+
+// reset the whole timer data
+function resetTimer() {
+    timerInitiated = false;
+    cycleNum = 1;
+    isFocus = true;
+    resetCurrentTime();
+    updateIndicator("focus");
+    updateTimerColor("focus");
+    cycleDisplay.innerHTML = `Cycle 1`;
+    timerDisplay.innerHTML = "00:00:00";
+    switchControllerStatus("stop")
+    pauseTimer();
+}
+
+function processGoalMet() {
+    makeGoalSound();
+    pauseTimer();
+    timerInitiated = false;
+    updateIndicator("focus");
+    updateTimerColor("focus");
+    timerDisplay.innerHTML = "00:00:00";
+    switchControllerStatus("stop")
+    blinkIndicator();
+}
+
+function blinkIndicator(){
+    let greenText = false;
+    let blinkCount = 0
+    const goalAction = setInterval(() => {
+        if(blinkCount >= 10) {
+            timerDisplayBox.classList.add("active");
+            clearInterval(goalAction);
+            return;
+        }
+        if(greenText) {
+            timerDisplayBox.classList.add("active");
+            greenText = false;
+        } else {
+            timerDisplayBox.classList.remove("active");
+            greenText = true;
+        }
+        blinkCount++;
+    }, 300);
+}
+
+// update focus/break indicator 
+function updateIndicator(status) {
+    if(status == "focus") {
+        if(!timerPaused) {
+            makeFocusSound();
+        }
+        breakIndicator.classList.remove("active");
+        focusIndicator.classList.add("active");
+    } else if (status == "break") {
+        makeBreakSound();
+        breakIndicator.classList.add("active");
+        focusIndicator.classList.remove("active");
+    }
+}
+// update focus/break timer color
+function updateTimerColor(status) {
+    if(status == "focus") {
+        timerDisplayBox.classList.add("active");
+    } else if (status == "break") {
+        timerDisplayBox.classList.remove("active");
+    }
+}
+
+//set timer by getting input from the setting window
+function setTimerSetting() {
+    let focusHr = focusHrSet.value;
+    let focusMin = focusMinSet.value;
+    let breakHr = breakHrSet.value;
+    let breakMin = breakMinSet.value;
+    let cycles = cycleNumSet.value;
+
+    focusTime = focusHr*60*60 + focusMin*60;
+    breakTime = breakHr*60*60 + breakMin*60;
+    goalCycleNum = cycles; 
+
+    focusHrDesc.innerHTML = focusHr;
+    focusMinDesc.innerHTML = focusMin;
+    breakHrDesc.innerHTML = breakHr;
+    breakMinDesc.innerHTML = breakMin;
+    cycleDesc.innerHTML = cycles;
+    resetTimer();
 }
 
 // convert seconds to hours, minutes, seconds
@@ -233,17 +286,33 @@ function switchControllerStatus(currentStatus){
     }
 }
 
-// Switch indicator status from focus to break and vice versa
-function switchIndicatorMode() {
-    console.log(isFocus);
-    if(isFocus) {
-        isFocus = false;
-        focusIndicator.classList.remove("active");
-        breakIndicator.classList.add("active");
-    } else {
-        isFocus = true;
-        focusIndicator.classList.add("active");
-        breakIndicator.classList.remove("active");
-    }
-    console.log(isFocus);
+// Setting window functions
+function openSettingWindow() {
+    settingWindow.style.display = "flex";
+    fullAppWrapper.style.filter = "brightness(60%)";
+}
+function closeSettingWindow() {
+    settingWindow.style.display = "none";
+    fullAppWrapper.style.filter = "brightness(100%)";
+}
+
+// Sound functions
+function makeFocusSound() {
+    const sound = new Audio("sound/focus.wav");
+    sound.play();
+}
+
+function makeBreakSound() {
+    const sound = new Audio("sound/break.wav");
+    sound.play();
+}
+
+function makeClickSound() {
+    const sound = new Audio("sound/click.wav");
+    sound.play();
+}
+
+function makeGoalSound() {
+    const sound = new Audio("sound/goal.wav");
+    sound.play();
 }
