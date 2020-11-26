@@ -126,7 +126,7 @@ function progressTimer() {
                 resetCurrentTime();
                 incrementCycle();
                 isFocus = true;
-                if(cycleNum == goalCycleNum && goalCycleNum == 1) {
+                if(cycleNum == goalCycleNum || goalCycleNum == 1) {
                     processGoalMet();
                     return;
                 }
