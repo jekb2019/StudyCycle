@@ -28,19 +28,18 @@ let breakMinDesc = document.querySelector("#cycle-info__desc__b-min");
 let cycleDesc = document.querySelector("#cycle-info__desc__cycle");
 
 let timer;
-// let focusTime = 20*60;
-let focusTime = 3;
+let focusTime = 20*60;
 let currentTime = 0;
-// let breakTime = 5*60;
-let breakTime = 2;
+let breakTime = 5*60;
 let isFocus = true;
-// let goalCycleNum = 5;
-let goalCycleNum = 2;
+let goalCycleNum = 5;
 let cycleNum = 1;
 let timerInitiated = false;
 let timerPaused = true;
 
+// Function used for debugging current timer data values
 function deb() {
+    console.log("CurrentTime", currentTime);
     console.log("isFocus", isFocus);
     console.log("cycleNum", cycleNum);
     console.log("goalCycleNum", goalCycleNum);
@@ -49,7 +48,6 @@ function deb() {
 
 }
 
-// Button controllers
 settingButton.onclick = () => {
     makeClickSound();
     openSettingWindow();
@@ -111,6 +109,7 @@ function resetCurrentTime() {
     currentTime = 0;
 }
 
+// Progress timer every 1 second
 function progressTimer() {
     timerPaused = false;
     timer = setInterval(() => {
@@ -127,7 +126,7 @@ function progressTimer() {
                 resetCurrentTime();
                 incrementCycle();
                 isFocus = true;
-                if(cycleNum == goalCycleNum) {
+                if(cycleNum == goalCycleNum && goalCycleNum == 1) {
                     processGoalMet();
                     return;
                 }
@@ -138,10 +137,10 @@ function progressTimer() {
         }
         currentTime++;
         updateTimeDisplay(currentTime);
-
     }, 1000)
 }
 
+// Update timer display according to currentTime
 function updateTimeDisplay(currentTime) {
     let hours;
     let minutes;
@@ -176,7 +175,7 @@ function incrementCycle() {
     cycleDisplay.innerHTML = `Cycle ${cycleNum}`;
 }
 
-// reset the whole timer data
+// reset timer data and display
 function resetTimer() {
     timerInitiated = false;
     cycleNum = 1;
@@ -190,6 +189,7 @@ function resetTimer() {
     pauseTimer();
 }
 
+// Goal met processor
 function processGoalMet() {
     makeGoalSound();
     pauseTimer();
@@ -198,11 +198,12 @@ function processGoalMet() {
     updateTimerColor("focus");
     timerDisplay.innerHTML = "00:00:00";
     switchControllerStatus("reset")
-    blinkIndicator();
+    blinkTimerDisplay();
     
 }
 
-function blinkIndicator(){
+// Blink timer display (used for processGoalMet() function)
+function blinkTimerDisplay(){
     timerContainer.style.pointerEvents = "none";
     let greenText = false;
     let blinkCount = 0
